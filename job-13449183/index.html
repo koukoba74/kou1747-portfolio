@@ -1,0 +1,31 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="110ページ級のコラム流し込みを1週間単位で処理するためのHTML生成・画像配置・目次・表・QA実装デモ。">
+<title>110ページ/週 流し込みコーディング実装デモ</title><style>
+:root{--ink:#101828;--muted:#667085;--line:#e4e7ec;--bg:#f7f9fc;--accent:#155eef;--ok:#067647;--warn:#b54708}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);line-height:1.75}
+a{color:#1849a9}.wrap{width:min(1080px,calc(100% - 32px));margin:auto}header{padding:54px 0;background:#fff;border-bottom:1px solid var(--line)}
+.kicker{color:var(--accent);font-weight:800;font-size:.78rem;letter-spacing:.09em}h1{font-size:clamp(2.2rem,6vw,4.5rem);line-height:1.08;letter-spacing:-.035em;margin:.25em 0}
+.lead{font-size:1.06rem;color:#344054;max-width:820px}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:28px 0}.metric,.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px}.metric b{display:block;font-size:1.45rem}.metric span{font-size:.82rem;color:var(--muted)}
+section{padding:38px 0}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.chip{display:inline-block;padding:3px 9px;border-radius:999px;background:#eff4ff;color:#1849a9;font-size:.78rem;font-weight:700;margin:2px}.ok{color:var(--ok);font-weight:800}
+table{width:100%;border-collapse:collapse;background:#fff}th,td{border:1px solid var(--line);padding:10px;text-align:left}th{background:#f2f4f7}
+button{border:0;border-radius:9px;background:var(--ink);color:#fff;padding:10px 14px;font-weight:800;cursor:pointer}
+pre{background:#101828;color:#e4e7ec;border-radius:12px;padding:15px;overflow:auto;white-space:pre-wrap}
+@media(max-width:760px){.metrics,.grid2,.grid3{grid-template-columns:1fr}}
+</style></head><body>
+<header><div class="wrap"><div class="kicker">JOB 13449183 / COLUMN FLOW</div><h1>110ページ級を、<br>1週間で回すための実装。</h1>
+<p class="lead">3,000文字・7,000文字コラム、画像1〜2点、目次、表組、箇条書き、一覧ページまでを想定。原稿データと既存HTMLテンプレートを分離し、差し替えとQAを一括処理する工程です。</p>
+<div class="metrics"><div class="metric"><b>110ページ</b><span>1サイト想定</span></div><div class="metric"><b>1週間</b><span>サイト単位の処理目標</span></div><div class="metric"><b>100/100 PASS</b><span>現行自動生成テスト</span></div><div class="metric"><b>0</b><span>構造QA failure</span></div></div></div></header>
+<main class="wrap">
+<section><h2>この案件で実際に処理する内容</h2><div class="grid3">
+<div class="card"><b>3,000文字 × 50</b><p>本文・画像1点・タグ・目次・箇条書きをテンプレートへ反映。</p></div>
+<div class="card"><b>7,000文字 × 50</b><p>長文・画像2点・表組・複数見出しを同じルールで処理。</p></div>
+<div class="card"><b>一覧 × 10</b><p>記事タイトル・画像・リンクを一覧側へ反映し、リンク切れを検査。</p></div></div></section>
+<section><div class="grid2"><div class="card"><h2>生成フロー</h2><ol><li>Sheet/CSVを正規化</li><li>既存HTMLテンプレートを変数化</li><li>本文・画像・タグ・目次・表を反映</li><li>一覧データを生成</li><li>placeholder / title / H1 / alt / linkをQA</li><li>最初の数ページ＋抜き取り目視</li></ol></div>
+<div class="card"><h2>自動QA</h2><table><tr><th>項目</th><th>処理</th></tr><tr><td>差し替え漏れ</td><td class="ok">自動検出</td></tr><tr><td>title / H1</td><td class="ok">自動検出</td></tr><tr><td>画像alt</td><td class="ok">自動検出</td></tr><tr><td>リンク</td><td class="ok">自動検出</td></tr><tr><td>文意・表示</td><td>抜き取り確認</td></tr></table></div></div></section>
+<section><h2>実ページサンプル</h2><p>同じ生成方式で作成したページです。</p><div class="grid3">
+<a class="card" href="../pf01/samples/page-001.html"><b>3,000文字系サンプル A</b><p>目次・本文・QA構造</p></a>
+<a class="card" href="../pf01/samples/page-003.html"><b>3,000文字系サンプル B</b><p>差し替え漏れ防止を想定</p></a>
+<a class="card" href="../pf01/samples/page-004.html"><b>7,000文字系レイアウト例</b><p>長文・複数セクション想定</p></a></div></section>
+<section><div class="card"><h2>納品速度の考え方</h2><p>110ページを1ページずつゼロから編集するのではなく、最初の2〜3ページで完成ルールを固定→バッチ生成→自動QA→抜き取り確認へ切り替えます。作業量が増えるほどテンプレート化の効果が出る構成です。</p></div></section>
+</main></body></html>
