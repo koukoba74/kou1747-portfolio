@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{TITLE}}</title>
+<meta name="description" content="{{SUMMARY}}">
+<style>
+body{font-family:system-ui,sans-serif;max-width:860px;margin:40px auto;padding:0 20px;line-height:1.8;color:#222}
+.tags{display:flex;gap:8px;flex-wrap:wrap}.tag{background:#eef2f5;border-radius:999px;padding:3px 9px;font-size:.85rem}
+.hero{max-width:100%;height:auto;border-radius:12px}.back{margin-top:32px}
+</style>
+</head>
+<body>
+<main>
+<p>自主制作 / 自動生成デモ</p>
+<h1>{{TITLE}}</h1>
+<p><strong>{{SUMMARY}}</strong></p>
+<div class="tags">{{TAGS_HTML}}</div>
+<img class="hero" src="{{IMAGE_SRC}}" alt="{{IMAGE_ALT}}">
+<div>{{BODY}}</div>
+<p class="back"><a href="../index.html">一覧へ戻る</a></p>
+</main>
+</body>
+</html>
