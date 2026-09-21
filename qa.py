@@ -8,6 +8,10 @@ PUBLIC_HTML = [
     ROOT / "pf01" / "index.html",
     ROOT / "pf02" / "index.html",
     ROOT / "pf03" / "index.html",
+    ROOT / "job-13449183" / "index.html",
+    ROOT / "job-13448744" / "index.html",
+    ROOT / "job-13447002" / "index.html",
+    ROOT / "job-13464681" / "index.html",
 ]
 
 for page in PUBLIC_HTML:
