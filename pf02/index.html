@@ -1,15 +1,27 @@
 <!doctype html>
-<html lang="ja">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="WordPress子テーマによる軽微修正の自主制作サンプル">
-<title>PF02 WordPress軽微修正</title>
-<style>*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.75;background:#f5f7f9;color:#1d252d}a{color:#1256a3}.page{width:min(960px,calc(100% - 32px));margin:auto;padding:36px 0}.box{background:#fff;border:1px solid #dfe4e8;border-radius:14px;padding:22px;margin:20px 0}.note{background:#fff7dc;border:1px solid #e8d59a;border-radius:10px;padding:14px}</style>
-</head>
-<body><main class="page">
-<p><a href="../">← ポートフォリオTOP</a></p>
-<p>SELF-MADE / PF02</p><h1>WordPress 軽微修正・子テーマサンプル</h1>
-<div class="note">高度な独自テーマ開発実績を示すものではなく、既存サイトへの影響範囲を抑えた軽微修正のコード例です。</div>
-<div class="box"><h2>想定作業</h2><ul><li>子テーマでCSSを追加</li><li>ショートコードで更新情報ブロックを追加</li><li>出力時のescape</li><li>変更範囲を小さく保つ実装</li></ul>
-<p><a href="functions.php">functions.php</a> / <a href="style.css">style.css</a></p></div>
-</main></body></html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="4サイトのTOPページへテキスト・画像・CTAを同一ルールで反映するHTML/CSS更新デモ。">
+<title>4サイトTOP 一括差し替えデモ | kou_1747</title>
+<style>
+:root{--ink:#111827;--muted:#6b7280;--line:#e5e7eb;--accent:#7c3aed}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#f8fafc;line-height:1.7}.wrap{width:min(1050px,calc(100% - 32px));margin:auto}
+header{padding:52px 0;background:#fff;border-bottom:1px solid var(--line)}h1{font-size:clamp(2rem,6vw,4rem);line-height:1.08}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0}.tabs button{border:1px solid var(--line);background:#fff;padding:9px 14px;border-radius:999px;cursor:pointer;font-weight:700}.tabs button.active{background:var(--ink);color:#fff}
+.preview{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden}.mock-nav{padding:14px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}.mock-hero{padding:54px 28px;background:linear-gradient(135deg,#eef2ff,#faf5ff)}.mock-hero h2{font-size:clamp(1.8rem,5vw,3rem);line-height:1.15;margin:.2em 0}.cta{display:inline-block;background:var(--accent);color:#fff;padding:10px 16px;border-radius:8px}.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:20px}.col{border:1px solid var(--line);padding:16px;border-radius:12px}.data{margin:28px 0;background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px}code{background:#f3f4f6;padding:2px 5px;border-radius:5px}
+@media(max-width:700px){.cols{grid-template-columns:1fr}.mock-hero{padding:36px 20px}}
+</style></head>
+<body><header><div class="wrap"><p><a href="../">← Portfolio</a></p><h1>4サイトのTOP更新を、<br>1つのルールで展開。</h1><p>支給されたテキスト・画像・CTA・ファイル名ルールをサイトごとのデータへ整理し、同じHTML構造へ反映する想定です。下のボタンで4サイト分の差し替え結果を切り替えられます。</p></div></header>
+<main class="wrap">
+<div class="tabs"><button data-site="0" class="active">Site A</button><button data-site="1">Site B</button><button data-site="2">Site C</button><button data-site="3">Site D</button></div>
+<section class="preview"><div class="mock-nav"><strong id="brand">NORTH</strong><span>Service / About / Contact</span></div><div class="mock-hero"><small id="eyebrow">SERVICE A</small><h2 id="title">業務のスピードを、もっとシンプルに。</h2><p id="copy">既存業務を整理し、運用しやすいWeb導線へ。</p><span class="cta" id="cta">資料を見る</span></div><div class="cols"><div class="col"><b>01</b><p id="c1">テキスト差し替え</p></div><div class="col"><b>02</b><p id="c2">画像・ファイル名更新</p></div><div class="col"><b>03</b><p id="c3">PC/SP表示確認</p></div></div></section>
+<div class="data"><h2>更新ルール</h2><p><code>site data</code> を切り替えるだけで、ブランド名・見出し・本文・CTA・各セクションを同一テンプレートへ反映。実案件では画像パス、alt、リンク先、ファイル名も同じデータ表で管理します。</p></div>
+</main>
+<script>
+const sites=[
+{brand:'NORTH',e:'SERVICE A',t:'業務のスピードを、もっとシンプルに。',copy:'既存業務を整理し、運用しやすいWeb導線へ。',cta:'資料を見る',c:['テキスト差し替え','画像・ファイル名更新','PC/SP表示確認']},
+{brand:'LUMINA',e:'SERVICE B',t:'伝わる情報を、必要な場所へ。',copy:'既存デザインを崩さず、コンテンツを正確に更新。',cta:'サービスを見る',c:['長文TOP更新','画像配置','リンク検査']},
+{brand:'ARC',e:'SERVICE C',t:'更新が続くサイトほど、仕組みで速く。',copy:'繰り返し作業をルール化して、複数ページへ展開。',cta:'詳しく見る',c:['共通テンプレート','差分データ管理','抜き取りQA']},
+{brand:'FIELD',e:'SERVICE D',t:'4サイトでも、品質を揃えて更新。',copy:'サイト差分を管理しながら、同一工程で納品。',cta:'お問い合わせ',c:['差分整理','レスポンシブ','最終確認']}
+];
+const $all=s=>document.querySelectorAll(s);const set=(id,v)=>document.querySelector(id).textContent=v;
+$all('button[data-site]').forEach((b)=>b.addEventListener('click',()=>{const i=+b.dataset.site,s=sites[i];$all('button').forEach(x=>x.classList.remove('active'));b.classList.add('active');set('#brand',s.brand);set('#eyebrow',s.e);set('#title',s.t);set('#copy',s.copy);set('#cta',s.cta);set('#c1',s.c[0]);set('#c2',s.c[1]);set('#c3',s.c[2]);}));
+</script></body></html>
