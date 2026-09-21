@@ -1,33 +1,169 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="15,000〜20,000文字級の長尺TOPページを4サイトへテキスト・画像差し替えする案件向け実装デモ。">
-<title>長尺TOP × 4サイト 差し替え実装デモ</title><style>
-:root{--ink:#101828;--muted:#667085;--line:#e4e7ec;--bg:#f7f9fc;--accent:#155eef;--ok:#067647;--warn:#b54708}
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);line-height:1.75}
-a{color:#1849a9}.wrap{width:min(1080px,calc(100% - 32px));margin:auto}header{padding:54px 0;background:#fff;border-bottom:1px solid var(--line)}
-.kicker{color:var(--accent);font-weight:800;font-size:.78rem;letter-spacing:.09em}h1{font-size:clamp(2.2rem,6vw,4.5rem);line-height:1.08;letter-spacing:-.035em;margin:.25em 0}
-.lead{font-size:1.06rem;color:#344054;max-width:820px}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:28px 0}.metric,.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px}.metric b{display:block;font-size:1.45rem}.metric span{font-size:.82rem;color:var(--muted)}
-section{padding:38px 0}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.chip{display:inline-block;padding:3px 9px;border-radius:999px;background:#eff4ff;color:#1849a9;font-size:.78rem;font-weight:700;margin:2px}.ok{color:var(--ok);font-weight:800}
-table{width:100%;border-collapse:collapse;background:#fff}th,td{border:1px solid var(--line);padding:10px;text-align:left}th{background:#f2f4f7}
-button{border:0;border-radius:9px;background:var(--ink);color:#fff;padding:10px 14px;font-weight:800;cursor:pointer}
-pre{background:#101828;color:#e4e7ec;border-radius:12px;padding:15px;overflow:auto;white-space:pre-wrap}
-@media(max-width:760px){.metrics,.grid2,.grid3{grid-template-columns:1fr}}
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="岐阜・愛知の戸建てリノベーションならLUMINA HOME。設計から施工、アフターサポートまで一貫対応。">
+<title>LUMINA HOME｜暮らしを整える戸建てリノベーション</title>
+<style>
+:root{
+  --ink:#1e2421;--muted:#667069;--paper:#f7f4ee;--card:#fffdf9;--line:#dfded7;
+  --green:#335f4c;--green2:#6f8f7f;--sand:#d9c5a4;--accent:#b56d45;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",system-ui,sans-serif;color:var(--ink);background:#fff;line-height:1.85}
+a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
+.wrap{width:min(1120px,calc(100% - 36px));margin:auto}
+.header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,0,0,.06)}
+.header-inner{height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{font-size:1.15rem;font-weight:900;letter-spacing:.12em}
+.nav{display:flex;gap:24px;font-size:.88rem}.nav a{color:#4d554f}.contact{background:var(--green);color:#fff;padding:11px 16px;border-radius:999px;font-weight:800}
+.hero{background:linear-gradient(135deg,#f2eee5 0%,#f8f6f0 55%,#e6eee9 100%);overflow:hidden}
+.hero-grid{min-height:680px;display:grid;grid-template-columns:1.02fr .98fr;align-items:center;gap:42px;padding:64px 0}
+.eyebrow{font-size:.76rem;letter-spacing:.15em;color:var(--green);font-weight:900}.hero h1{font-size:clamp(2.65rem,6vw,5.2rem);line-height:1.08;letter-spacing:-.04em;margin:.25em 0}
+.hero p{font-size:1.04rem;color:#515951;max-width:620px}.btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}.btn{display:inline-block;padding:13px 19px;border-radius:999px;font-weight:800}.btn.primary{background:var(--green);color:#fff}.btn.ghost{border:1px solid #aeb6b0;background:#fff}
+.hero-art{position:relative;min-height:520px}.house{position:absolute;inset:30px 0 0 20px;border-radius:30px;background:linear-gradient(160deg,#6b7c70,#344f42);overflow:hidden;box-shadow:0 28px 60px rgba(34,55,45,.18)}
+.house:before{content:"";position:absolute;left:7%;right:7%;top:10%;height:53%;background:linear-gradient(180deg,#d9d4c7,#f6f1e5);clip-path:polygon(50% 0,100% 37%,100% 100%,0 100%,0 37%)}
+.house:after{content:"";position:absolute;left:17%;right:17%;bottom:12%;height:44%;background:linear-gradient(90deg,#aa7c5e 0 31%,#e8e1d5 31% 69%,#7d9d8d 69%);box-shadow:0 0 0 10px rgba(255,255,255,.15)}
+.float-card{position:absolute;right:-10px;bottom:28px;background:#fff;border-radius:18px;padding:18px 20px;box-shadow:0 16px 40px rgba(0,0,0,.12);width:240px}.float-card b{font-size:1.7rem;color:var(--green)}
+.stats{background:var(--green);color:#fff}.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.18)}.stat{padding:28px 24px;background:var(--green)}.stat b{display:block;font-size:1.9rem}.stat span{font-size:.82rem;color:#dbe6df}
+.section{padding:90px 0}.section.alt{background:var(--paper)}.section-head{display:flex;justify-content:space-between;gap:28px;align-items:end;margin-bottom:36px}.section-head h2{font-size:clamp(2rem,4vw,3.4rem);line-height:1.2;margin:0;letter-spacing:-.035em}.section-head p{max-width:520px;color:var(--muted);margin:0}
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden}.visual{aspect-ratio:4/3;position:relative;overflow:hidden}.v1{background:linear-gradient(145deg,#d7ccb9,#7b8f7d)}.v2{background:linear-gradient(145deg,#d7e0dc,#b58b6a)}.v3{background:linear-gradient(145deg,#bfcbbf,#ece4d4)}.visual:before{content:"";position:absolute;left:12%;right:12%;bottom:0;height:72%;background:#f4efe5;clip-path:polygon(50% 0,100% 32%,100% 100%,0 100%,0 32%);box-shadow:0 -12px 30px rgba(0,0,0,.08)}.visual:after{content:"";position:absolute;left:25%;right:25%;bottom:0;height:38%;background:linear-gradient(90deg,#765844 0 35%,#d9d1c5 35% 65%,#56715f 65%)}
+.card-body{padding:22px}.card-body h3{font-size:1.25rem;margin:.2em 0}.card-body p{color:var(--muted);font-size:.94rem}
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.problem{padding:24px;border-radius:18px;background:#fff;border:1px solid var(--line)}.problem b{font-size:1.08rem}.problem p{color:var(--muted);margin-bottom:0}
+.feature{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin:54px 0}.feature:nth-child(even) .feature-art{order:2}.feature-art{min-height:390px;border-radius:24px;background:linear-gradient(145deg,#e3d7c5,#6b806f);position:relative;overflow:hidden}.feature-art:before{content:"";position:absolute;inset:14% 12% 0;background:#f4efe4;clip-path:polygon(50% 0,100% 35%,100% 100%,0 100%,0 35%)}.feature-art:after{content:"";position:absolute;inset:auto 26% 0;height:43%;background:linear-gradient(90deg,#785b48 0 28%,#ebe4d8 28% 68%,#66816d 68%)}
+.feature-copy .num{font-size:.78rem;font-weight:900;color:var(--accent);letter-spacing:.12em}.feature-copy h3{font-size:2rem;line-height:1.3;margin:.35em 0}.feature-copy p{color:var(--muted)}.bullets{display:grid;gap:9px;margin-top:18px}.bullets span{display:flex;gap:8px}.bullets span:before{content:"✓";color:var(--green);font-weight:900}
+.case-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:20px}.case-main{background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden}.case-img{height:410px;background:linear-gradient(135deg,#d9c6a8,#6f8474);position:relative}.case-img:before{content:"";position:absolute;left:10%;right:10%;bottom:0;height:78%;background:#f4efe6;clip-path:polygon(50% 0,100% 32%,100% 100%,0 100%,0 32%)}.case-img:after{content:"";position:absolute;left:22%;right:22%;bottom:0;height:42%;background:linear-gradient(90deg,#795c48 0 32%,#dad2c6 32% 68%,#6e8a74 68%)}.case-copy{padding:24px}.side{display:grid;gap:16px}.mini{padding:22px;background:#fff;border:1px solid var(--line);border-radius:18px}.mini b{font-size:1.45rem;color:var(--green)}
+.price{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.price-card{padding:28px;background:#fff;border:1px solid var(--line);border-radius:20px}.price-card.featured{border:2px solid var(--green);transform:translateY(-8px)}.price-card h3{font-size:1.25rem}.price-card .amount{font-size:2rem;font-weight:900;color:var(--green)}.price-card ul{padding-left:1.2em;color:var(--muted)}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.flow-step{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px}.flow-step b{display:block;color:var(--accent);font-size:.82rem}.flow-step h3{margin:.4em 0}
+.faq{display:grid;gap:12px}.faq details{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px}.faq summary{font-weight:800;cursor:pointer}.faq p{color:var(--muted)}
+.cta-sec{background:linear-gradient(135deg,#2f5847,#243e34);color:#fff;padding:80px 0}.cta-grid{display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center}.cta-grid h2{font-size:clamp(2rem,4vw,3.5rem);margin:.2em 0}.cta-grid p{color:#d9e4de}.cta-white{background:#fff;color:var(--green);padding:14px 20px;border-radius:999px;font-weight:900}
+.footer{padding:46px 0;background:#17231d;color:#d7e0da}.footer-grid{display:flex;justify-content:space-between;gap:30px;align-items:flex-end}.small{font-size:.78rem;color:#aebcb3}
+@media(max-width:900px){.hero-grid,.feature,.case-grid,.cta-grid{grid-template-columns:1fr}.hero-art{min-height:400px}.feature:nth-child(even) .feature-art{order:0}.stats-grid,.cards3,.price{grid-template-columns:1fr 1fr}.flow{grid-template-columns:1fr 1fr}.nav{display:none}}
+@media(max-width:580px){.stats-grid,.cards3,.price,.flow,.problem-grid{grid-template-columns:1fr}.hero-grid{padding-top:34px}.hero-art{min-height:330px}.house{inset:10px 0 0}.float-card{right:10px;width:200px}.section{padding:68px 0}.section-head{display:block}.section-head p{margin-top:12px}.footer-grid{display:block}}
 </style>
-<style>.tabs{display:flex;gap:8px;flex-wrap:wrap}.tabs button.active{background:#155eef}.site{background:#fff;border:1px solid #e4e7ec;border-radius:18px;overflow:hidden}.nav{display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #e4e7ec}.visual{padding:58px 26px;background:linear-gradient(135deg,#eef4ff,#f9f5ff)}.visual h2{font-size:clamp(2rem,5vw,3.6rem);line-height:1.1}.blocks{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:20px}.block{border:1px solid #e4e7ec;border-radius:12px;padding:16px}.long{padding:20px}.sectionmock{padding:34px 0;border-top:1px solid #e4e7ec}.imagebox{height:180px;background:#eef2f6;border-radius:12px;display:grid;place-items:center;font-weight:800;color:#667085}@media(max-width:700px){.blocks{grid-template-columns:1fr}}</style></head><body>
-<header><div class="wrap"><div class="kicker">JOB 13447002 / 4 SITE TOP UPDATE</div><h1>長尺TOPを4サイト、<br>同じルールで差し替える。</h1><p class="lead">15,000〜20,000文字級のLP風TOPページを想定。テキスト、画像、ファイル名、CTA、各セクションをサイトごとのデータへ分け、同じHTML構造へ反映します。</p></div></header>
-<main class="wrap">
-<section><div class="tabs"><button class="active" data-i="0">Site A</button><button data-i="1">Site B</button><button data-i="2">Site C</button><button data-i="3">Site D</button></div></section>
-<section class="site"><div class="nav"><strong id="brand">NORTH</strong><span>Service / Case / FAQ / Contact</span></div><div class="visual"><small id="eyebrow">SERVICE A</small><h2 id="title">更新の多いサイトを、運用しやすく。</h2><p id="copy">支給テキスト・画像を既存デザインへ反映する想定のTOPページです。</p><button id="cta">資料を見る</button></div>
-<div class="blocks"><div class="block"><b>01</b><p id="b1">テキスト差し替え</p></div><div class="block"><b>02</b><p id="b2">画像・ファイル名変更</p></div><div class="block"><b>03</b><p id="b3">SP表示確認</p></div></div>
-<div class="long"><div class="sectionmock"><h3>課題</h3><p>長尺TOPでは差し替え箇所が多いため、セクションIDと素材名を対応表で管理します。</p></div><div class="sectionmock"><h3>サービス</h3><div class="imagebox" id="img">hero-site-a.webp / feature-01.webp</div></div><div class="sectionmock"><h3>導入事例</h3><p>カードタイトル・説明・画像・リンク先をサイト別データとして反映。</p></div><div class="sectionmock"><h3>FAQ / CTA</h3><p>ページ下部まで同じ差し替えルールで処理し、最終的にPC/SPで確認します。</p></div></div></section>
-<section><div class="card"><h2>4サイトをこう管理</h2><p>ブランド名 / 見出し / 本文 / CTA / 画像ファイル名 / alt / リンク先をサイトごとの設定データへ分離。最初の1サイトで完成ルールを決め、残り3サイトへ展開します。</p></div></section>
+</head>
+<body>
+<header class="header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#">LUMINA HOME</a>
+    <nav class="nav">
+      <a href="#service">サービス</a><a href="#case">施工事例</a><a href="#price">料金</a><a href="#faq">FAQ</a>
+    </nav>
+    <a class="contact" href="#contact">無料相談</a>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">RENOVATION / GIFU & AICHI</div>
+      <h1>家を変える。<br>暮らしが整う。</h1>
+      <p>築年数を重ねた戸建てを、いまの生活にちょうどいい住まいへ。LUMINA HOMEは、設計・素材選び・施工・アフターサポートまで一貫して伴走するリノベーションチームです。</p>
+      <div class="btns"><a class="btn primary" href="#contact">無料相談を予約する</a><a class="btn ghost" href="#case">施工事例を見る</a></div>
+    </div>
+    <div class="hero-art">
+      <div class="house"></div>
+      <div class="float-card"><span>施工後満足度</span><b>96%</b><small>※社内アンケート想定</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="wrap stats-grid">
+    <div class="stat"><b>12年</b><span>地域密着の設計・施工経験</span></div>
+    <div class="stat"><b>380+</b><span>戸建て改修・部分施工の相談実績</span></div>
+    <div class="stat"><b>3D</b><span>完成前のプラン共有に対応</span></div>
+    <div class="stat"><b>10年</b><span>主要構造・防水保証プラン</span></div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap">
+    <div class="section-head"><div><div class="eyebrow">WHY RENOVATION</div><h2>住み替えなくても、<br>暮らしは変えられる。</h2></div><p>間取り、断熱、収納、家事動線。毎日の小さな不便をひとつずつ整えることで、今の家をもっと好きになれる選択肢があります。</p></div>
+    <div class="problem-grid">
+      <div class="problem"><b>家事動線が長く、毎日の負担が大きい</b><p>キッチン・洗面・収納の位置を見直し、移動の少ないレイアウトへ。</p></div>
+      <div class="problem"><b>冬は寒く、夏は暑い</b><p>窓・断熱材・気密性を見直して、冷暖房効率の良い住まいへ。</p></div>
+      <div class="problem"><b>家族構成が変わって部屋が使いづらい</b><p>個室中心の間取りから、家族が集まりやすいLDK中心の暮らしへ。</p></div>
+      <div class="problem"><b>収納が足りず、物があふれる</b><p>使う場所の近くに収納を配置し、片付けやすさまで設計します。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="service" class="section">
+  <div class="wrap">
+    <div class="section-head"><div><div class="eyebrow">SERVICE</div><h2>暮らしに合わせて選べる、<br>3つのリノベーション。</h2></div><p>全面改修から部分リフォームまで、住まいの状態と予算に合わせてプランを組み立てます。</p></div>
+    <div class="cards3">
+      <article class="card"><div class="visual v1"></div><div class="card-body"><span class="eyebrow">FULL</span><h3>フルリノベーション</h3><p>間取り・内装・断熱・設備をまとめて見直し、住まい全体を今の生活へ最適化します。</p></div></article>
+      <article class="card"><div class="visual v2"></div><div class="card-body"><span class="eyebrow">PARTIAL</span><h3>LDK・水まわり改修</h3><p>キッチンや洗面を中心に、家事動線と収納を整える人気の部分改修です。</p></div></article>
+      <article class="card"><div class="visual v3"></div><div class="card-body"><span class="eyebrow">PERFORMANCE</span><h3>断熱・性能向上</h3><p>窓、断熱材、気密性を見直し、一年を通して快適に過ごせる室内環境を目指します。</p></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap">
+    <div class="feature"><div class="feature-art"></div><div class="feature-copy"><div class="num">POINT 01</div><h3>暮らし方から、間取りを考える。</h3><p>図面だけを見て部屋を配置するのではなく、朝起きてから夜眠るまでの動線を聞き取ります。料理、洗濯、片付け、在宅ワーク、子どもの支度まで、家族ごとの動きを設計に反映します。</p><div class="bullets"><span>家事時間を減らす回遊動線</span><span>使う場所に合わせた収納計画</span><span>将来の家族構成変化にも対応</span></div></div></div>
+    <div class="feature"><div class="feature-copy"><div class="num">POINT 02</div><h3>素材の手触りまで、完成前に確認。</h3><p>床材、壁、建具、照明、金物まで、実物サンプルを見ながら選定。写真だけでは分かりにくい色味や質感も、組み合わせを確認しながら決めていきます。</p><div class="bullets"><span>無垢材・突板・塗装など幅広く提案</span><span>予算配分を見ながら優先順位を整理</span><span>長く使いやすいメンテナンス性も考慮</span></div></div><div class="feature-art" style="background:linear-gradient(145deg,#d3c0a7,#8b6c55)"></div></div>
+    <div class="feature"><div class="feature-art" style="background:linear-gradient(145deg,#dbe5df,#587261)"></div><div class="feature-copy"><div class="num">POINT 03</div><h3>工事中も、完成後も、担当が変わらない。</h3><p>打ち合わせ内容を施工チームへ丸投げせず、設計担当が現場確認まで継続。完成後の不具合や追加相談も、履歴を共有した同じチームが対応します。</p><div class="bullets"><span>着工前の現場確認</span><span>工程ごとの品質チェック</span><span>引き渡し後の定期フォロー</span></div></div></div>
+  </div>
+</section>
+
+<section id="case" class="section">
+  <div class="wrap">
+    <div class="section-head"><div><div class="eyebrow">CASE STUDY</div><h2>暮らしが変わった、<br>リノベーション事例。</h2></div><p>間取りや素材だけでなく、「なぜ変えたのか」「暮らしがどう変わったか」まで紹介します。</p></div>
+    <div class="case-grid">
+      <article class="case-main"><div class="case-img"></div><div class="case-copy"><span class="eyebrow">CASE 01 / 32坪・築28年</span><h3>閉じたキッチンを、家族が集まるLDKへ。</h3><p>壁付けキッチンと和室をつなぎ、23帖のLDKへ再構成。パントリーと回遊動線を設け、料理・片付け・洗濯が短い距離で完結する住まいに。</p></div></article>
+      <div class="side"><div class="mini"><span>延床面積</span><b>106㎡</b><p>1階中心の間取り変更</p></div><div class="mini"><span>工事期間</span><b>約3.5ヶ月</b><p>解体〜引き渡しまで</p></div><div class="mini"><span>主な改修</span><p>LDK拡張 / 断熱 / キッチン / 洗面 / 収納 / 内装</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="price" class="section alt">
+  <div class="wrap">
+    <div class="section-head"><div><div class="eyebrow">PRICE GUIDE</div><h2>予算の目安。</h2></div><p>建物状態や設備グレードにより変動します。現地調査後、項目ごとの見積もりを提示します。</p></div>
+    <div class="price">
+      <div class="price-card"><span class="eyebrow">LIGHT</span><h3>部分リフォーム</h3><div class="amount">180万円〜</div><ul><li>LDK内装</li><li>収納追加</li><li>設備一部交換</li></ul></div>
+      <div class="price-card featured"><span class="eyebrow">STANDARD</span><h3>1階中心リノベーション</h3><div class="amount">650万円〜</div><ul><li>間取り変更</li><li>キッチン・洗面</li><li>断熱・内装</li></ul></div>
+      <div class="price-card"><span class="eyebrow">FULL</span><h3>フルリノベーション</h3><div class="amount">1,200万円〜</div><ul><li>全面間取り変更</li><li>設備一式</li><li>断熱・耐震検討</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><div><div class="eyebrow">FLOW</div><h2>相談から完成まで。</h2></div><p>初回相談から引き渡しまで、担当者が窓口となって進行します。</p></div>
+    <div class="flow">
+      <div class="flow-step"><b>STEP 01</b><h3>無料相談</h3><p>暮らしの悩み、希望時期、予算感を伺います。</p></div>
+      <div class="flow-step"><b>STEP 02</b><h3>現地調査</h3><p>構造・設備・劣化状況を確認し、改修範囲を整理。</p></div>
+      <div class="flow-step"><b>STEP 03</b><h3>設計・見積</h3><p>プラン、素材、設備と合わせて見積もりを提示。</p></div>
+      <div class="flow-step"><b>STEP 04</b><h3>施工・引渡し</h3><p>工程確認を行い、完成検査後にお引き渡し。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="section alt">
+  <div class="wrap">
+    <div class="section-head"><div><div class="eyebrow">FAQ</div><h2>よくあるご質問。</h2></div></div>
+    <div class="faq">
+      <details open><summary>住みながら工事できますか？</summary><p>部分改修であれば可能な場合があります。全面改修の場合は、安全面と工期を考慮して仮住まいをご案内することがあります。</p></details>
+      <details><summary>中古住宅購入前でも相談できますか？</summary><p>可能です。購入候補物件の図面や内覧情報をもとに、希望の改修が可能か事前に整理できます。</p></details>
+      <details><summary>見積もりだけでもお願いできますか？</summary><p>初回相談と概算整理までは無料です。詳細設計が必要な場合は、内容に応じて設計費をご案内します。</p></details>
+      <details><summary>工事後の保証はありますか？</summary><p>工事内容に応じて保証書を発行し、定期点検とアフターメンテナンスに対応します。</p></details>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="cta-sec">
+  <div class="wrap cta-grid">
+    <div><div class="eyebrow" style="color:#c9ddcf">CONTACT</div><h2>今の家で、<br>もっと心地よく暮らす。</h2><p>まだ具体的なプランがなくても大丈夫です。まずは住まいの悩みからお聞かせください。</p></div>
+    <a class="cta-white" href="mailto:example@example.com">無料相談を予約する</a>
+  </div>
+</section>
 </main>
-<script>
-const data=[
-['NORTH','SERVICE A','更新の多いサイトを、運用しやすく。','支給テキスト・画像を既存デザインへ反映する想定のTOPページです。','資料を見る',['テキスト差し替え','画像・ファイル名変更','SP表示確認'],'hero-site-a.webp / feature-01.webp'],
-['LUMINA','SERVICE B','伝えたい内容を、長尺TOPへ正確に反映。','15,000文字を超えるページでも、セクション単位で差分管理します。','相談する',['長文差し替え','CTA更新','リンク確認'],'hero-site-b.webp / feature-02.webp'],
-['ARC','SERVICE C','同じ構造なら、2サイト目から速く。','1サイト目で決めた作業ルールを残りサイトへ展開します。','詳しく見る',['差分データ','画像配置','抜き取りQA'],'hero-site-c.webp / feature-03.webp'],
-['FIELD','SERVICE D','4サイトでも、品質を揃えて納品。','PC/SP確認まで同じチェック表で進めます。','お問い合わせ',['レスポンシブ','ファイル名管理','最終QA'],'hero-site-d.webp / feature-04.webp']
-];
-document.querySelectorAll('[data-i]').forEach(btn=>btn.addEventListener('click',()=>{const d=data[+btn.dataset.i];document.querySelectorAll('[data-i]').forEach(x=>x.classList.remove('active'));btn.classList.add('active');const ids=['brand','eyebrow','title','copy','cta'];ids.forEach((id,n)=>document.querySelector('#'+id).textContent=d[n]);['b1','b2','b3'].forEach((id,n)=>document.querySelector('#'+id).textContent=d[5][n]);document.querySelector('#img').textContent=d[6];}));
-</script></body></html>
+
+<footer class="footer">
+  <div class="wrap footer-grid"><div><div class="brand">LUMINA HOME</div><p>岐阜・愛知の戸建てリノベーション</p></div><div class="small">Demo site for coding portfolio / © LUMINA HOME</div></div>
+</footer>
+</body>
+</html>
