@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="kou_1747の自主制作Webポートフォリオ。HTML/CSS、WordPress軽微修正、AI活用Web制作補助のサンプル。">
+<title>kou_1747 自主制作Webポートフォリオ</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.75;background:#f5f7f9;color:#1d252d}
+a{color:#1256a3}
+.wrap{width:min(960px,calc(100% - 32px));margin:auto}
+.hero{padding:56px 0 38px;background:#fff;border-bottom:1px solid #dfe4e8}
+.eyebrow{font-size:.76rem;letter-spacing:.14em;font-weight:800;color:#65707a}
+.hero h1{font-size:clamp(2rem,6vw,3.6rem);line-height:1.15}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:28px 0}
+.card{background:#fff;border:1px solid #dfe4e8;border-radius:14px;padding:22px;display:block;color:inherit;text-decoration:none}
+.tag{display:inline-block;background:#edf1f4;border-radius:999px;padding:3px 9px;font-size:.78rem;margin-right:4px}
+.page{padding:36px 0}
+.note{background:#fff7dc;border:1px solid #e8d59a;border-radius:10px;padding:14px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.hero{padding-top:38px}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+<p class="eyebrow">SELF-MADE PORTFOLIO / kou_1747</p>
+<h1>Web更新・軽微修正・AI活用の自主制作サンプル</h1>
+<p>実在クライアント案件ではなく、現在の対応範囲をご確認いただくために制作したサンプルです。</p>
+</div></header>
+<main class="wrap"><section class="page">
+<div class="note">過去案件は下請け中心で公開できないため、能力確認用として自主制作しています。デザイン実績ではなく、既存ルールに沿った実装・更新・QA・作業効率化を主眼にしています。</div>
+<div class="grid">
+<a class="card" href="pf01/"><span class="tag">HTML/CSS</span><span class="tag">QA</span><h2>PF01｜流し込み・既存サイト更新</h2><p>文章・画像・表・リンクの反映と、差し替え漏れ防止の簡易QA。</p></a>
+<a class="card" href="pf02/"><span class="tag">WordPress</span><span class="tag">Child Theme</span><h2>PF02｜WordPress軽微修正</h2><p>子テーマ、ショートコード、安全な軽微カスタマイズのコード例。</p></a>
+<a class="card" href="pf03/"><span class="tag">AI Workflow</span><span class="tag">Python</span><h2>PF03｜AI活用Web制作補助</h2><p>CSV原稿からHTMLページを生成し、自動QAするワークフロー。</p></a>
+</div>
+</section></main>
+</body>
+</html>
