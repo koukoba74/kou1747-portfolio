@@ -3,13 +3,21 @@ import re, sys
 
 ROOT = Path(__file__).resolve().parent
 errors = []
-for page in ROOT.rglob("*.html"):
-    if "output" in page.parts:
+PUBLIC_HTML = [
+    ROOT / "index.html",
+    ROOT / "pf01" / "index.html",
+    ROOT / "pf02" / "index.html",
+    ROOT / "pf03" / "index.html",
+]
+
+for page in PUBLIC_HTML:
+    if not page.exists():
+        errors.append(f"{page.relative_to(ROOT)}: missing")
         continue
     text = page.read_text(encoding="utf-8")
     if '<meta name="viewport"' not in text:
         errors.append(f"{page.relative_to(ROOT)}: viewport missing")
-    if len(re.findall(r"<h1(?:\\s|>)", text, re.I)) != 1:
+    if len(re.findall(r"<h1(?:\s|>)", text, re.I)) != 1:
         errors.append(f"{page.relative_to(ROOT)}: h1 count")
     if not re.search(r"<title>.+?</title>", text, re.I | re.S):
         errors.append(f"{page.relative_to(ROOT)}: title missing")
@@ -24,6 +32,7 @@ for page in ROOT.rglob("*.html"):
             target = target / "index.html"
         if not target.exists():
             errors.append(f"{page.relative_to(ROOT)}: broken link {href}")
+
 print("PASS" if not errors else "FAIL")
 if errors:
     print("\n".join(errors))
