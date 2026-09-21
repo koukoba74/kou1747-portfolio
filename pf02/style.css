@@ -1,0 +1,8 @@
+/*
+Theme Name: Kou Maintenance Child
+Description: 自主制作 - 既存WordPressサイトの軽微修正を想定した子テーマ
+Template: twentytwentyfive
+Version: 1.0.0
+*/
+.portfolio-notice{border:1px solid #ddd;padding:1rem;border-radius:.5rem;background:#fafafa}
+.portfolio-notice__date{font-size:.85rem;color:#666}
