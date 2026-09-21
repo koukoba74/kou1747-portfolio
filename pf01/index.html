@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="HTML/CSSによる既存サイトへのコンテンツ流し込みとQAの自主制作サンプル">
+<title>PF01 流し込み・既存サイト更新</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.75;background:#f5f7f9;color:#1d252d}
+a{color:#1256a3}.page{width:min(960px,calc(100% - 32px));margin:auto;padding:36px 0}
+.eyebrow{font-size:.76rem;letter-spacing:.14em;font-weight:800;color:#65707a}.page h1{font-size:clamp(2rem,6vw,3.6rem);line-height:1.15}
+.box{background:#fff;border:1px solid #dfe4e8;border-radius:14px;padding:22px;margin:20px 0}
+pre{white-space:pre-wrap;overflow:auto;background:#182029;color:#edf3f8;padding:14px;border-radius:8px}
+table{width:100%;border-collapse:collapse}th,td{border:1px solid #dfe4e8;padding:10px;text-align:left}
+button{padding:10px 15px;border:0;border-radius:8px;font-weight:700;cursor:pointer}
+</style>
+</head>
+<body><main class="page">
+<p><a href="../">← ポートフォリオTOP</a></p>
+<p class="eyebrow">SELF-MADE / PF01</p>
+<h1>HTML/CSS 流し込み・既存サイト更新デモ</h1>
+<p>文章・画像・タグを既存フォーマットへ正確に反映する案件を想定した自主制作です。</p>
+<div class="box">
+<h2>対応内容</h2>
+<ul><li>見出し・本文の差し替え</li><li>画像・alt属性の設定</li><li>表組・箇条書き・内部リンクの整形</li><li>PC/SPを想定したレスポンシブ対応</li></ul>
+<table><thead><tr><th>確認項目</th><th>チェック方法</th></tr></thead>
+<tbody><tr><td>文章</td><td>元データとの目視照合</td></tr><tr><td>画像</td><td>src / alt / 表示確認</td></tr><tr><td>リンク</td><td>href空欄とリンク先確認</td></tr></tbody></table>
+</div>
+<div class="box"><h2>簡易QA</h2><button id="run" type="button">QAを実行</button><pre id="result">未実行</pre></div>
+</main>
+<script>
+document.querySelector('#run').addEventListener('click',()=>{
+  const e=[];
+  if(document.querySelectorAll('h1').length!==1)e.push('H1数');
+  document.querySelectorAll('a').forEach((x,i)=>{const h=x.getAttribute('href');if(!h||h==='#')e.push('リンク'+(i+1))});
+  document.querySelector('#result').textContent=e.length?'要確認\n- '+e.join('\n- '):'PASS\n見出しとリンクを確認しました。';
+});
+</script></body></html>
