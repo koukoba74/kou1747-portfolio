@@ -1,38 +1,32 @@
 <!doctype html>
 <html lang="ja">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="HTML/CSSによる既存サイトへのコンテンツ流し込みとQAの自主制作サンプル">
-<title>PF01 流し込み・既存サイト更新</title>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="100ページ級のHTML流し込み、画像配置、目次・表組、一覧リンク、自動QAを想定した実装デモ。">
+<title>100ページ級 流し込み・QA実装デモ | kou_1747</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.75;background:#f5f7f9;color:#1d252d}
-a{color:#1256a3}.page{width:min(960px,calc(100% - 32px));margin:auto;padding:36px 0}
-.eyebrow{font-size:.76rem;letter-spacing:.14em;font-weight:800;color:#65707a}.page h1{font-size:clamp(2rem,6vw,3.6rem);line-height:1.15}
-.box{background:#fff;border:1px solid #dfe4e8;border-radius:14px;padding:22px;margin:20px 0}
-pre{white-space:pre-wrap;overflow:auto;background:#182029;color:#edf3f8;padding:14px;border-radius:8px}
-table{width:100%;border-collapse:collapse}th,td{border:1px solid #dfe4e8;padding:10px;text-align:left}
-button{padding:10px 15px;border:0;border-radius:8px;font-weight:700;cursor:pointer}
-</style>
-</head>
-<body><main class="page">
-<p><a href="../">← ポートフォリオTOP</a></p>
-<p class="eyebrow">SELF-MADE / PF01</p>
-<h1>HTML/CSS 流し込み・既存サイト更新デモ</h1>
-<p>文章・画像・タグを既存フォーマットへ正確に反映する案件を想定した自主制作です。</p>
-<div class="box">
-<h2>対応内容</h2>
-<ul><li>見出し・本文の差し替え</li><li>画像・alt属性の設定</li><li>表組・箇条書き・内部リンクの整形</li><li>PC/SPを想定したレスポンシブ対応</li></ul>
-<table><thead><tr><th>確認項目</th><th>チェック方法</th></tr></thead>
-<tbody><tr><td>文章</td><td>元データとの目視照合</td></tr><tr><td>画像</td><td>src / alt / 表示確認</td></tr><tr><td>リンク</td><td>href空欄とリンク先確認</td></tr></tbody></table>
-</div>
-<div class="box"><h2>簡易QA</h2><button id="run" type="button">QAを実行</button><pre id="result">未実行</pre></div>
-</main>
-<script>
-document.querySelector('#run').addEventListener('click',()=>{
-  const e=[];
-  if(document.querySelectorAll('h1').length!==1)e.push('H1数');
-  document.querySelectorAll('a').forEach((x,i)=>{const h=x.getAttribute('href');if(!h||h==='#')e.push('リンク'+(i+1))});
-  document.querySelector('#result').textContent=e.length?'要確認\n- '+e.join('\n- '):'PASS\n見出しとリンクを確認しました。';
-});
-</script></body></html>
+:root{--ink:#101828;--muted:#667085;--line:#e4e7ec;--bg:#f8fafc;--accent:#155eef;--ok:#067647}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);line-height:1.75}a{color:#1849a9}
+.wrap{width:min(1040px,calc(100% - 32px));margin:auto}.hero{background:#101828;color:#fff;padding:56px 0}.hero p{color:#d0d5dd;max-width:760px}.hero h1{font-size:clamp(2.1rem,6vw,4rem);line-height:1.08}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}.m{background:#1d2939;border:1px solid #344054;border-radius:12px;padding:15px}.m b{display:block;font-size:1.45rem}.m span{color:#d0d5dd;font-size:.82rem}
+section{padding:42px 0}.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;margin:16px 0}.pipeline{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.p{background:#fff;border:1px solid var(--line);padding:13px;border-radius:10px}.samples{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.samples a{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px;text-decoration:none;font-weight:700}.pass{color:var(--ok);font-weight:900}
+table{width:100%;border-collapse:collapse;background:#fff}th,td{border:1px solid var(--line);padding:10px;text-align:left}th{background:#f2f4f7}
+@media(max-width:760px){.metrics{grid-template-columns:1fr 1fr}.pipeline,.samples{grid-template-columns:1fr}}
+</style></head>
+<body>
+<header class="hero"><div class="wrap"><p><a href="../" style="color:#b2ccff">← Portfolio</a></p>
+<h1>100ページ級の流し込みを、<br>「作る」だけでなく「検査」まで。</h1>
+<p>スプレッドシートやCSVの原稿をもとに、本文・タグ・目次・表・箇条書き・画像・一覧リンクを既存フォーマットへ反映する案件を想定。大量処理ほど、手作業だけに頼らず工程を固定します。</p>
+<div class="metrics">
+<div class="m"><b>100件</b><span>テスト入力</span></div><div class="m"><b>100ページ</b><span>HTML生成</span></div><div class="m"><b>0件</b><span>input error</span></div><div class="m"><b>0件</b><span>QA failure</span></div>
+</div></div></header>
+<main>
+<section><div class="wrap">
+<h2>処理フロー</h2>
+<div class="pipeline"><div class="p">CSV / Sheet</div><div class="p">テンプレート反映</div><div class="p">画像・タグ配置</div><div class="p">構造QA</div><div class="p">抜き取り目視</div></div>
+<div class="card"><h2>チェック対象</h2><table><tr><th>作業</th><th>自動確認</th><th>最終確認</th></tr><tr><td>タイトル / H1</td><td class="pass">✓</td><td>文意・見た目</td></tr><tr><td>差し替え漏れ</td><td class="pass">✓ placeholder検出</td><td>原稿との照合</td></tr><tr><td>画像 / alt</td><td class="pass">✓</td><td>画像内容・配置</td></tr><tr><td>一覧リンク</td><td class="pass">✓</td><td>導線確認</td></tr><tr><td>目次 / 表 / 箇条書き</td><td>構造化</td><td>表示確認</td></tr></table></div>
+<h2>生成ページサンプル</h2>
+<p>100件テストと同じ生成方式で、確認しやすい5ページを公開しています。</p>
+<div class="samples"><a href="samples/page-001.html">Page 001</a><a href="samples/page-002.html">Page 002</a><a href="samples/page-003.html">Page 003</a><a href="samples/page-004.html">Page 004</a><a href="samples/page-005.html">Page 005</a></div>
+<div class="card"><h2>この方式が向く案件</h2><p>50〜100ページ以上のコラム・導入事例、複数サイトへの同形式展開、原稿・画像・タグがスプレッドシートで支給される更新案件。最初の数ページで完成形を決め、その後は同じルールで展開します。</p></div>
+</div></section></main>
+</body></html>
