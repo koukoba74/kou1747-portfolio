@@ -1,11 +1,35 @@
 <!doctype html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="CSV原稿からHTMLを生成しQAするAI活用Web制作補助の自主制作">
-<title>PF03 AI活用Web制作補助</title>
-<style>*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.75;background:#f5f7f9;color:#1d252d}a{color:#1256a3}.page{width:min(960px,calc(100% - 32px));margin:auto;padding:36px 0}.box{background:#fff;border:1px solid #dfe4e8;border-radius:14px;padding:22px;margin:20px 0}</style></head>
-<body><main class="page"><p><a href="../">← ポートフォリオTOP</a></p><p>SELF-MADE / PF03</p>
-<h1>AI活用Web制作補助｜CSV→HTML生成＋QA</h1>
-<p>AIで整形した原稿や画像指示をCSVへ揃えた後、コードでHTML生成と必須項目チェックを行う想定の自主制作です。</p>
-<div class="box"><h2>処理フロー</h2><ol><li>原稿をCSVに整理</li><li>HTMLテンプレートへ値を反映</li><li>複数ページを生成</li><li>title / H1 / placeholderをQA</li><li>目視確認して納品</li></ol>
-<p><a href="content.csv">入力CSV</a> / <a href="generate.py">生成コード</a> / <a href="qa.py">QAコード</a></p></div>
-</main></body></html>
+<meta name="description" content="EC商品ページのDOMから価格・在庫要素をCSSセレクタで特定し取得する実装デモ。">
+<title>EC在庫判定 CSS Selectorデモ | kou_1747</title>
+<style>
+:root{--ink:#101828;--muted:#667085;--line:#e4e7ec;--ok:#067647;--accent:#0e7090}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#f8fafc;line-height:1.7}.wrap{width:min(1000px,calc(100% - 32px));margin:auto}
+header{background:#fff;padding:52px 0;border-bottom:1px solid var(--line)}h1{font-size:clamp(2rem,6vw,4rem);line-height:1.08}
+.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;margin:28px 0}.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px}.product{border:1px solid var(--line);border-radius:12px;padding:18px}.price{font-size:1.7rem;font-weight:900}.stock.in-stock{color:var(--ok);font-weight:800}
+button{background:var(--ink);color:#fff;border:0;border-radius:9px;padding:10px 14px;font-weight:800;cursor:pointer}pre{background:#111827;color:#e5e7eb;padding:14px;border-radius:10px;white-space:pre-wrap;overflow:auto}table{width:100%;border-collapse:collapse}th,td{border:1px solid var(--line);padding:9px;text-align:left}th{background:#f2f4f7}.result{font-size:1.05rem}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+</style></head>
+<body><header><div class="wrap"><p><a href="../">← Portfolio</a></p><h1>商品ページのDOMから、<br>価格・在庫判定箇所を特定。</h1><p>Chrome DevToolsで商品ページ構造を確認し、価格・在庫状態に使えるCSSセレクタを決める作業を想定したブラウザ実演です。</p></div></header>
+<main class="wrap">
+<div class="grid">
+<section class="panel"><h2>Mock EC Product DOM</h2><div class="product" id="product-card" data-product-id="SKU-1747"><span class="sku">SKU-1747</span><h3 class="product-title">Wireless Desk Lamp</h3><div class="price" data-price="4980">¥4,980</div><div class="stock in-stock" data-stock="1">在庫あり</div><button class="cart-button">カートに入れる</button></div><p>対象DOMは実際にこのページ内に存在します。</p></section>
+<section class="panel"><h2>Selector設定</h2><table><tr><th>値</th><th>CSS Selector</th></tr><tr><td>商品ID</td><td><code>#product-card</code></td></tr><tr><td>価格</td><td><code>#product-card .price</code></td></tr><tr><td>在庫</td><td><code>#product-card .stock</code></td></tr></table><p><button id="run">セレクタで取得</button></p><div class="result" id="result">未実行</div></section>
+</div>
+<section class="panel"><h2>取得ロジック</h2><pre>const product = document.querySelector('#product-card');
+const price = product.querySelector('.price')?.dataset.price;
+const stock = product.querySelector('.stock')?.dataset.stock;
+
+判定:
+stock === '1' → 在庫あり
+stock === '0' → 在庫なし</pre>
+<h2>20サイトへ展開する場合</h2><p>各サイトごとに「商品ID / 価格 / 在庫」のセレクタを記録し、取得結果を確認。構造が異なるサイトだけ個別調整し、共通の確認表で管理します。</p></section>
+</main>
+<script>
+document.querySelector('#run').addEventListener('click',()=>{
+ const product=document.querySelector('#product-card');
+ const price=product.querySelector('.price')?.dataset.price;
+ const stock=product.querySelector('.stock')?.dataset.stock;
+ document.querySelector('#result').innerHTML='<b>商品ID:</b> '+product.dataset.productId+'<br><b>価格:</b> ¥'+Number(price).toLocaleString()+'<br><b>在庫判定:</b> '+(stock==='1'?'在庫あり':'在庫なし')+'<br><span style="color:#067647;font-weight:800">取得成功</span>';
+});
+</script></body></html>
