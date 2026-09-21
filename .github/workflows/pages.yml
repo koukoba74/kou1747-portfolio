@@ -1,0 +1,69 @@
+name: QA and Deploy GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Portfolio structural QA
+        run: python qa.py
+
+      - name: Create 100-page test input
+        run: python flow-engine-v1/make_100_test.py
+
+      - name: Generate and QA 100 pages
+        run: python flow-engine-v1/run.py
+
+      - name: Assert 100-page PASS
+        shell: python
+        run: |
+          import json
+          from pathlib import Path
+          p = Path("flow-engine-v1/reports/summary.json")
+          data = json.loads(p.read_text(encoding="utf-8"))
+          print(json.dumps(data, ensure_ascii=False, indent=2))
+          assert data["input_rows"] == 100, data
+          assert data["generated_pages"] == 100, data
+          assert data["input_errors"] == 0, data
+          assert data["qa_failures"] == 0, data
+          assert data["status"] == "PASS", data
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: "."
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
